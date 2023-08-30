@@ -33,7 +33,7 @@ class ForcastCard extends StatelessWidget {
                     icon,
                     size: 50,
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 10),
                   Text(temprature),
                 ],
               ),
