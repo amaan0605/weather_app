@@ -12,33 +12,32 @@ class ForcastCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 120,
-      child: Card(
-        elevation: 10,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Column(
-                children: [
-                  Text(
-                    time,
-                    style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 8),
-                  Icon(
-                    icon,
-                    size: 50,
-                  ),
-                  const SizedBox(height: 10),
-                  Text(temprature),
-                ],
-              ),
-            ],
-          ),
+    return Card(
+      elevation: 10,
+      child: Container(
+        width: 100,
+        padding: const EdgeInsets.all(8.0),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+        child: Column(
+          children: [
+            Text(
+              time,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            const SizedBox(height: 8),
+            Icon(
+              icon,
+              size: 32,
+            ),
+            const SizedBox(height: 10),
+            Text(
+              temprature,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
         ),
       ),
     );

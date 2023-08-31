@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:weather_app/addition_info_card.dart';
 import 'package:weather_app/forcast_card.dart';
 import 'package:weather_app/secrets.dart';
@@ -43,7 +44,9 @@ class _WeatherHomeState extends State<WeatherHome> {
           centerTitle: true,
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {});
+              },
               icon: const Icon(Icons.refresh),
             ),
           ]),
@@ -111,25 +114,31 @@ class _WeatherHomeState extends State<WeatherHome> {
                     'Hourly Forecast',
                     style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                   ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        for (int i = 0; i < 10; i++)
-                          ForcastCard(
-                            time: data['list'][i + 1]['dt'].toString(),
-                            icon: data['list'][i + 1]['weather'][0]['main'] ==
-                                        'Clouds' ||
-                                    data['list'][i + 1]['weather'][0]['main'] ==
-                                        'Rain'
-                                ? Icons.cloud
-                                : Icons.sunny,
-                            temprature:
-                                data['list'][i + 1]['main']['temp'].toString(),
-                          ),
-                      ],
-                    ),
+                  SizedBox(
+                    height: 120,
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 10,
+                        itemBuilder: ((context, index) {
+                          final time = DateTime.parse(
+                              data['list'][index + 1]['dt_txt'].toString());
+                          final hourlyTemprature = data['list'][index + 1]
+                                  ['main']['temp']
+                              .toString();
+                          return ForcastCard(
+                              time: DateFormat.j().format(time),
+                              icon: data['list'][index + 1]['weather'][0]
+                                              ['main'] ==
+                                          'Clouds' ||
+                                      data['list'][index + 1]['weather'][0]
+                                              ['main'] ==
+                                          'Rain'
+                                  ? Icons.cloud
+                                  : Icons.sunny,
+                              temprature: hourlyTemprature);
+                        })),
                   ),
+
                   const SizedBox(height: 15),
 
                   //Additional Info
